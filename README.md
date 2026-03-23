@@ -1,4 +1,4 @@
 # DispositivosMov
 Entrega de practicas para dispositivos moviles
-Rosas Lira Pablo Elias
-Alan Alexzander Gonzales Murga
+Rosas Lira Pablo Elias \n
+Alan Alexzander Gonzalez Murga
