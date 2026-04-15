@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Fast Food App</string>
+    <string name="menu_title">NUESTRO MENÚ</string>
+
+    <string name="burger_name">Super Burger</string>
+    <string name="burger_price">$8.50</string>
+
+    <string name="wings_name">Alitas Picantes</string>
+    <string name="wings_price">$10.00</string>
+
+    <string name="fries_name">Papas Fritas</string>
+    <string name="fries_price">$4.50</string>
+
+    <string name="hotdog_name">Hot Dog Clásico</string>
+    <string name="hotdog_price">$5.00</string>
+
+    <string name="burrito_name">Burrito Mixto</string>
+    <string name="burrito_price">$7.00</string>
+
+    <string name="salchipapa_name">Salchipapa Especial</string>
+    <string name="salchipapa_price">$6.50</string>
+
+    <string name="milanesa_name">Milanesa de Pollo</string>
+    <string name="milanesa_price">$9.00</string>
+
+    <string name="view_cart">VER CARRITO</string>
+
+    <string name="cart_title">TU PEDIDO</string>
+    <string name="order_summary">1x Super Burger\n1x Papas Fritas\n1x Burrito Mixto</string>
+    <string name="total_price">Total a Pagar: $20.00</string>
+    <string name="payment_method">Método de Pago</string>
+    <string name="cash_on_delivery">Efectivo al recibir</string>
+    <string name="credit_debit_card">Tarjeta de Crédito/Débito</string>
+    <string name="agree_terms">Acepto los términos y condiciones</string>
+    <string name="confirm_order">CONFIRMAR PEDIDO</string>
+    <string name="order_confirmed">¡Pedido Confirmado!</string>
+
+    <!-- Navigation Drawer -->
+    <string name="menu_home">Inicio</string>
+    <string name="menu_orders">Mis Pedidos</string>
+    <string name="menu_promos">Promociones</string>
+    <string name="menu_profile">Mi Perfil</string>
+    <string name="navigation_drawer_open">Abrir menú de navegación</string>
+    <string name="navigation_drawer_close">Cerrar menú de navegación</string>
+</resources>
