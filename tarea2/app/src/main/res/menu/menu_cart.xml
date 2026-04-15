@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <item
+        android:id="@+id/menu_modify_order"
+        android:title="Modificar pedido"
+        app:showAsAction="never" />
+    
+    <item
+        android:id="@+id/menu_resend_order"
+        android:title="Reenviar pedido"
+        app:showAsAction="never" />
+    
+    <item
+        android:id="@+id/menu_cancel_order"
+        android:title="Cancelar pedido"
+        app:showAsAction="never" />
+    
+    <item
+        android:id="@+id/menu_order_history"
+        android:title="Ver historial"
+        app:showAsAction="never" />
+</menu>
