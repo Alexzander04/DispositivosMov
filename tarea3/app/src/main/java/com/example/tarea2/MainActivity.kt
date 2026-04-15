@@ -2,6 +2,7 @@ package com.example.tarea3
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -39,10 +40,22 @@ class MainActivity : AppCompatActivity() {
 
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.nav_home -> Toast.makeText(this, "Inicio", Toast.LENGTH_SHORT).show()
-                R.id.nav_orders -> Toast.makeText(this, "Mis Pedidos", Toast.LENGTH_SHORT).show()
-                R.id.nav_promos -> Toast.makeText(this, "Promociones", Toast.LENGTH_SHORT).show()
-                R.id.nav_profile -> Toast.makeText(this, "Mi Perfil", Toast.LENGTH_SHORT).show()
+                R.id.nav_home -> {
+                    Log.i("MainActivity", "Ir a Inicio")
+                    Toast.makeText(this, "Inicio", Toast.LENGTH_SHORT).show()
+                }
+                R.id.nav_orders -> {
+                    Log.i("MainActivity", "Ver Mis Pedidos")
+                    Toast.makeText(this, "Mis Pedidos", Toast.LENGTH_SHORT).show()
+                }
+                R.id.nav_promos -> {
+                    Log.i("MainActivity", "Ver Promociones")
+                    Toast.makeText(this, "Promociones", Toast.LENGTH_SHORT).show()
+                }
+                R.id.nav_profile -> {
+                    Log.i("MainActivity", "Acceder a Mi Perfil")
+                    Toast.makeText(this, "Mi Perfil", Toast.LENGTH_SHORT).show()
+                }
             }
             drawerLayout.closeDrawer(GravityCompat.START)
             true

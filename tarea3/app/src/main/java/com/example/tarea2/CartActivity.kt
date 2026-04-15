@@ -1,6 +1,9 @@
 package com.example.tarea3
 
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
@@ -10,6 +13,7 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -18,6 +22,10 @@ class CartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_cart)
+        
+        // Configurar Toolbar
+        val toolbar: Toolbar = findViewById(R.id.cartToolbar)
+        setSupportActionBar(toolbar)
 
         val cartMain = findViewById<View>(R.id.cart_main)
         if (cartMain != null) {
@@ -106,6 +114,42 @@ class CartActivity : AppCompatActivity() {
         btnCancelOrder.setOnClickListener {
             Toast.makeText(this, "Pedido cancelado", Toast.LENGTH_SHORT).show()
             finish() // Cierra la actividad
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_cart, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_modify_order -> {
+                val message = "Modificar pedido"
+                Log.i("CartActivity", message)
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.menu_resend_order -> {
+                val message = "Reenviar pedido"
+                Log.i("CartActivity", message)
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.menu_cancel_order -> {
+                val message = "Cancelar pedido"
+                Log.i("CartActivity", message)
+                Toast.makeText(this, "Pedido cancelado", Toast.LENGTH_SHORT).show()
+                finish()
+                true
+            }
+            R.id.menu_order_history -> {
+                val message = "Ver historial de pedidos"
+                Log.i("CartActivity", message)
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }
