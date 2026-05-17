@@ -82,9 +82,55 @@ class MainActivity : AppCompatActivity() {
         }
 
         val btnAddToCart = findViewById<Button>(R.id.btnAddToCart)
+        
+        // Setup quantity buttons
+        setupQtyButtons(R.id.btnMinusBurger, R.id.btnPlusBurger, R.id.etQtyBurger)
+        setupQtyButtons(R.id.btnMinusWings, R.id.btnPlusWings, R.id.etQtyWings)
+        setupQtyButtons(R.id.btnMinusFries, R.id.btnPlusFries, R.id.etQtyFries)
+        setupQtyButtons(R.id.btnMinusHotdog, R.id.btnPlusHotdog, R.id.etQtyHotdog)
+        setupQtyButtons(R.id.btnMinusBurrito, R.id.btnPlusBurrito, R.id.etQtyBurrito)
+        setupQtyButtons(R.id.btnMinusSalchipapa, R.id.btnPlusSalchipapa, R.id.etQtySalchipapa)
+        setupQtyButtons(R.id.btnMinusMilanesa, R.id.btnPlusMilanesa, R.id.etQtyMilanesa)
+
         btnAddToCart.setOnClickListener {
             val intent = Intent(this, CartActivity::class.java)
+            
+            // Obtener cantidades de los EditText
+            val qtyBurger = findViewById<android.widget.EditText>(R.id.etQtyBurger).text.toString().toIntOrNull() ?: 0
+            val qtyWings = findViewById<android.widget.EditText>(R.id.etQtyWings).text.toString().toIntOrNull() ?: 0
+            val qtyFries = findViewById<android.widget.EditText>(R.id.etQtyFries).text.toString().toIntOrNull() ?: 0
+            val qtyHotdog = findViewById<android.widget.EditText>(R.id.etQtyHotdog).text.toString().toIntOrNull() ?: 0
+            val qtyBurrito = findViewById<android.widget.EditText>(R.id.etQtyBurrito).text.toString().toIntOrNull() ?: 0
+            val qtySalchipapa = findViewById<android.widget.EditText>(R.id.etQtySalchipapa).text.toString().toIntOrNull() ?: 0
+            val qtyMilanesa = findViewById<android.widget.EditText>(R.id.etQtyMilanesa).text.toString().toIntOrNull() ?: 0
+
+            intent.putExtra("QTY_BURGER", qtyBurger)
+            intent.putExtra("QTY_WINGS", qtyWings)
+            intent.putExtra("QTY_FRIES", qtyFries)
+            intent.putExtra("QTY_HOTDOG", qtyHotdog)
+            intent.putExtra("QTY_BURRITO", qtyBurrito)
+            intent.putExtra("QTY_SALCHIPAPA", qtySalchipapa)
+            intent.putExtra("QTY_MILANESA", qtyMilanesa)
+
             startActivity(intent)
+        }
+    }
+
+    private fun setupQtyButtons(minusId: Int, plusId: Int, editId: Int) {
+        val btnMinus = findViewById<Button>(minusId)
+        val btnPlus = findViewById<Button>(plusId)
+        val etQty = findViewById<android.widget.EditText>(editId)
+
+        btnMinus.setOnClickListener {
+            val current = etQty.text.toString().toIntOrNull() ?: 0
+            if (current > 0) {
+                etQty.setText((current - 1).toString())
+            }
+        }
+
+        btnPlus.setOnClickListener {
+            val current = etQty.text.toString().toIntOrNull() ?: 0
+            etQty.setText((current + 1).toString())
         }
     }
 }

@@ -16,6 +16,11 @@
         android:id="@+id/menu_cancel_order"
         android:title="Cancelar pedido"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_delete_all"
+        android:title="Vaciar carrito"
+        app:showAsAction="never" />
     
     <item
         android:id="@+id/menu_order_history"
