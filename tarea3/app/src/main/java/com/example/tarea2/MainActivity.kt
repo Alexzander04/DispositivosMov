@@ -45,8 +45,8 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "Inicio", Toast.LENGTH_SHORT).show()
                 }
                 R.id.nav_orders -> {
-                    Log.i("MainActivity", "Ver Mis Pedidos")
-                    Toast.makeText(this, "Mis Pedidos", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, HistoryActivity::class.java)
+                    startActivity(intent)
                 }
                 R.id.nav_promos -> {
                     Log.i("MainActivity", "Ver Promociones")

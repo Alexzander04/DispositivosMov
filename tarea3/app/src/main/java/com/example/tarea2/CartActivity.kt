@@ -1,5 +1,6 @@
 package com.example.tarea3
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -48,13 +49,20 @@ class CartActivity : AppCompatActivity() {
         val btnCancelOrder = findViewById<Button>(R.id.btnCancelOrder)
 
         // Obtener datos del Intent
-        var qtyBurger = intent.getIntExtra("QTY_BURGER", 0)
-        var qtyWings = intent.getIntExtra("QTY_WINGS", 0)
-        var qtyFries = intent.getIntExtra("QTY_FRIES", 0)
-        var qtyHotdog = intent.getIntExtra("QTY_HOTDOG", 0)
-        var qtyBurrito = intent.getIntExtra("QTY_BURRITO", 0)
-        var qtySalchipapa = intent.getIntExtra("QTY_SALCHIPAPA", 0)
-        var qtyMilanesa = intent.getIntExtra("QTY_MILANESA", 0)
+        val qtyBurger = intent.getIntExtra("QTY_BURGER", 0)
+        val qtyWings = intent.getIntExtra("QTY_WINGS", 0)
+        val qtyFries = intent.getIntExtra("QTY_FRIES", 0)
+        val qtyHotdog = intent.getIntExtra("QTY_HOTDOG", 0)
+        val qtyBurrito = intent.getIntExtra("QTY_BURRITO", 0)
+        val qtySalchipapa = intent.getIntExtra("QTY_SALCHIPAPA", 0)
+        val qtyMilanesa = intent.getIntExtra("QTY_MILANESA", 0)
+
+        val dbHelper = DatabaseHelper(this)
+
+        // Variables para almacenar cálculos
+        var currentSubtotal = 0.0
+        var currentTax = 0.0
+        var currentTotal = 0.0
 
         fun updateSummary() {
             val tvOrderSummary = findViewById<android.widget.TextView>(R.id.tvOrderSummary)
@@ -79,20 +87,20 @@ class CartActivity : AppCompatActivity() {
             val priceSalchipapa = 6.50
             val priceMilanesa = 9.00
 
-            var subtotal = (qtyBurger * priceBurger) + (qtyWings * priceWings) + (qtyFries * priceFries) + 
+            currentSubtotal = (qtyBurger * priceBurger) + (qtyWings * priceWings) + (qtyFries * priceFries) + 
                            (qtyHotdog * priceHotdog) + (qtyBurrito * priceBurrito) + 
                            (qtySalchipapa * priceSalchipapa) + (qtyMilanesa * priceMilanesa)
             
-            if (cbBeverages.isChecked) subtotal += 2.50
-            if (cbDessert.isChecked) subtotal += 3.00
-            if (rgDelivery.checkedRadioButtonId == R.id.rbDelivery) subtotal += 2.50
+            if (cbBeverages.isChecked) currentSubtotal += 2.50
+            if (cbDessert.isChecked) currentSubtotal += 3.00
+            if (rgDelivery.checkedRadioButtonId == R.id.rbDelivery) currentSubtotal += 2.50
 
-            val tax = subtotal * 0.10
-            val total = subtotal + tax
+            currentTax = currentSubtotal * 0.10
+            currentTotal = currentSubtotal + currentTax
 
-            findViewById<android.widget.TextView>(R.id.tvSubtotal).text = String.format("$%.2f", subtotal)
-            findViewById<android.widget.TextView>(R.id.tvTax).text = String.format("$%.2f", tax)
-            findViewById<android.widget.TextView>(R.id.tvTotal).text = String.format("$%.2f", total)
+            findViewById<android.widget.TextView>(R.id.tvSubtotal).text = String.format("$%.2f", currentSubtotal)
+            findViewById<android.widget.TextView>(R.id.tvTax).text = String.format("$%.2f", currentTax)
+            findViewById<android.widget.TextView>(R.id.tvTotal).text = String.format("$%.2f", currentTotal)
         }
 
         updateSummary()
@@ -155,12 +163,21 @@ class CartActivity : AppCompatActivity() {
                 else -> "No seleccionado"
             }
 
-            val message = "¡Pedido Confirmado!\n" +
-                    "Entrega: $deliveryType\n" +
-                    "Pago: $paymentMethod\n" +
-                    "Total: " + findViewById<android.widget.TextView>(R.id.tvTotal).text
-            
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            // Guardar en SQLite
+            val id = dbHelper.insertOrder(
+                qtyBurger, qtyWings, qtyFries, qtyHotdog, qtyBurrito,
+                qtySalchipapa, qtyMilanesa, currentSubtotal, currentTax,
+                currentTotal, deliveryType, paymentMethod, notes
+            )
+
+            if (id > -1) {
+                val message = "¡Pedido Guardado y Confirmado!\nID: $id\n" +
+                        "Total: " + findViewById<android.widget.TextView>(R.id.tvTotal).text
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                finish() // Opcional: Cerrar actividad tras confirmar
+            } else {
+                Toast.makeText(this, "Error al guardar el pedido", Toast.LENGTH_SHORT).show()
+            }
         }
 
         // Botón Cancelar
@@ -203,9 +220,8 @@ class CartActivity : AppCompatActivity() {
                 true
             }
             R.id.menu_order_history -> {
-                val message = "Ver historial de pedidos"
-                Log.i("CartActivity", message)
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, HistoryActivity::class.java)
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)

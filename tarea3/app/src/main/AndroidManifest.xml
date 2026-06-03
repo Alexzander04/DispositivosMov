@@ -24,6 +24,11 @@
             android:name=".CartActivity"
             android:exported="false"
             android:label="Your Cart" />
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="false"
+            android:label="Historial de Pedidos"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
